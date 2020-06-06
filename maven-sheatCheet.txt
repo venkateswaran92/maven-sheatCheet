@@ -1,0 +1,148 @@
+Create Java project:
+mvn archetype:generate -DgroupId=org.yourcompany.project -DartifactId=application
+Create web project 
+mvn archetype:generate -DgroupId=org.yourcompany.project -DartifactId=application -DarchetypeArtifactId=maven-archetype-webapp
+
+plugin:
+
+Swagger:
+
+<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<springmvc>false</springmvc>
+							<locations>
+								com
+							</locations>
+							<schemes>
+								http,https
+							</schemes>
+							<host>localhost:8080/RestEasy-rest-service</host>
+							<basePath>/rest</basePath>
+							<info>
+								<title>Swagger</title>
+								<version>1.0</version>
+								<description>
+									This is a RestEasy sample.
+								</description>
+								<contact>
+									<email>venkateswaran300@gmail.com</email>
+									<name>venkateswaran</name>
+									<url>https://github.com/venkateswaran92</url>
+								</contact>
+							</info>
+							<swaggerDirectory>WebContent/doc</swaggerDirectory>
+							<securityDefinitions>
+								<securityDefinition>
+									<name>basicAuth</name>
+									<type>basic</type>
+								</securityDefinition>
+							</securityDefinitions>
+						</apiSource>
+					</apiSources>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<!-- Adding dependency to swagger-hibernate-validations to enable the 
+						BeanValidator as a custom model converter -->
+					<dependency>
+						<groupId>io.swagger</groupId>
+						<artifactId>swagger-hibernate-validations</artifactId>
+						<version>1.5.6</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+
+maven-compiler-plugin:
+
+<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			
+Maven Assembly Plugin:	
+		
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<!-- get all project dependencies -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- MainClass in mainfest make a executable jar -->
+					<archive>
+					  <manifest>
+						<mainClass></mainClass>
+					  </manifest>
+					</archive>
+
+				</configuration>
+				<executions>
+				  <execution>
+					<id>make-assembly</id>
+                            <!-- bind to the packaging phase -->
+					<phase>package</phase>
+					<goals>
+						<goal>single</goal>
+					</goals>
+				  </execution>
+				</executions>
+			</plugin>
+			
+			
+
+shade plugin:
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-shade-plugin</artifactId>
+  <configuration>
+    <createDependencyReducedPom>false</createDependencyReducedPom>
+    <filters>
+      <filter>
+        <artifact>*:*</artifact>
+        <excludes>
+          <exclude>META-INF/*.SF</exclude>
+          <exclude>META-INF/*.DSA</exclude>
+          <exclude>META-INF/*.RSA</exclude>
+        </excludes>
+      </filter>
+    </filters>
+  </configuration>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals>
+        <goal>shade</goal>
+      </goals>
+      <configuration>
+        <shadedArtifactAttached>true</shadedArtifactAttached>
+        <shadedClassifierName>shaded</shadedClassifierName>
+        <transformers>
+          <transformer
+            implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+        </transformers>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
