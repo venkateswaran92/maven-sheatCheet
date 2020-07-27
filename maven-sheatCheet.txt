@@ -185,10 +185,10 @@ launch4j exe:
 						<configuration>
 							<headerType>gui</headerType>
 							<jar>${project.build.directory}/${artifactId}-${version}-shaded.jar</jar>
-							<outfile>${project.build.directory}/eventServer.exe</outfile>
+							<outfile>${project.build.directory}/event.exe</outfile>
 							<downloadUrl>http://java.com/download</downloadUrl>
 							<classPath>
-								<mainClass>com.venkat.EventServer</mainClass>
+								<mainClass></mainClass>
 								<preCp>anything</preCp>
 							</classPath>
 							<icon>resources/icon/internet_wifi_signal_icon_148213.ico</icon>
@@ -200,13 +200,13 @@ launch4j exe:
 								<fileVersion>1.0.0.0</fileVersion>
 								<txtFileVersion>${project.version}</txtFileVersion>
 								<fileDescription>${project.name}</fileDescription>
-								<copyright>2020 precisionit.co.in</copyright>
+								<copyright>2020 ABC.co.in</copyright>
 								<productVersion>1.0.0.0</productVersion>
 								<txtProductVersion>1.0.0.0</txtProductVersion>
 								<productName>${project.name}</productName>
-								<companyName>precisionit.co.in</companyName>
-								<internalName>EventServer</internalName>
-								<originalFilename>eventServer.exe</originalFilename>
+								<companyName>ABC.co.in</companyName>
+								<internalName>Event</internalName>
+								<originalFilename>event.exe</originalFilename>
 							</versionInfo>
 						</configuration>
 					</execution>
